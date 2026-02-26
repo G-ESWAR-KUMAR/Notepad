@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Note - Your Personal Workspace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="glass-card app-container animate-fadeIn">
+        <aside class="sidebar">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h2 style="font-size: 1.25rem; font-weight: 700;">My Notes</h2>
+                <button id="addNoteBtn" class="btn-primary" style="width: auto; padding: 8px 12px;">
+                    <i data-lucide="plus"></i>
+                </button>
+            </div>
+            <div class="note-list" id="noteList">
+                <!-- Notes will be injected here -->
+            </div>
+            <div style="margin-top: auto; padding-top: 20px;">
+                <button id="syncBtn" class="btn-primary"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);">
+                    <i data-lucide="refresh-cw" style="width: 16px; margin-right: 8px;"></i> Sync Now
+                </button>
+                <a href="/logout"
+                    style="display: block; text-align: center; margin-top: 15px; color: var(--text-muted); font-size: 0.875rem; text-decoration: none;">Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div id="editorPlaceholder"
+                style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-muted);">
+                <i data-lucide="file-text" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+                <p>Select a note to start editing</p>
+            </div>
+
+            <div id="editor" style="display: none; flex: 1; flex-direction: column;">
+                <header class="editor-header">
+                    <input type="text" id="noteTitle" class="editor-title" placeholder="Note Title...">
+                    <div style="display: flex; gap: 10px;">
+                        <button id="saveBtn" class="btn-primary" style="width: auto; padding: 8px 16px;">Save</button>
+                        <button id="deleteBtn"
+                            style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px; border-radius: 8px; cursor: pointer;">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                    </div>
+                </header>
+                <textarea id="noteContent" class="editor-content"
+                    placeholder="Start typing your thoughts..."></textarea>
+                <div class="status-bar">
+                    <span id="wordCount">0 words</span>
+                    <span id="syncStatus" class="sync-status synced">● Synced to local</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Quantum Note</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-card login-container animate-fadeIn">
+        <h1>CloudNote</h1>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Access your thoughts everywhere.</p>
+        
+        {% if error %}
+        <div style="color: #ef4444; margin-bottom: 20px; font-size: 0.875rem;">{{ error }}</div>
+        {% endif %}
+
+        <form action="/login" method="POST">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="admin" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+        
+        <p style="margin-top: 24px; font-size: 0.75rem; color: var(--text-muted);">
+            Demo account: <strong>admin / admin</strong>
+        </p>
+    </div>
+</body>
+</html>
