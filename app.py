@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_session import Session
+# from flask_session import Session
 from datetime import datetime
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -14,12 +14,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///not
 if os.environ.get('VERCEL'):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/notepad.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SESSION_TYPE'] = 'filesystem'
-if os.environ.get('VERCEL'):
-    app.config['SESSION_FILE_DIR'] = '/tmp/flask_session'
+# app.config['SESSION_TYPE'] = 'filesystem'
+# if os.environ.get('VERCEL'):
+#     app.config['SESSION_FILE_DIR'] = '/tmp/flask_session'
 
 db = SQLAlchemy(app)
-Session(app)
+# Session(app)
 
 # Supabase Setup
 url: str = os.getenv("SUPABASE_URL")
@@ -47,7 +47,10 @@ class Note(db.Model):
         }
 
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"Database creation error: {e}")
 
 # Auth Middleware
 def login_required(f):
